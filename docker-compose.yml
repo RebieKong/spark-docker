@@ -4,7 +4,7 @@ services:
   master:
     image: spark:2.4.6
     command: start-spark master
-    hostname: host.docker.internal
+    hostname: master
     ports:
       - "44040:4040"
       - "6066:6066"
