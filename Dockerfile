@@ -7,7 +7,8 @@ ENV DOWNLOAD_MIRROR=https://mirrors.aliyun.com
 
 # Set home
 ENV SPARK_HOME=/usr/local/spark-$SPARK_VERSION
-
+RUN rm -f /etc/apt/sources.list
+COPY ali-mirror.conf /etc/apt/sources.list
 # Install dependencies
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install \
