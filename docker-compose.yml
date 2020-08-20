@@ -4,17 +4,30 @@ services:
   master:
     image: spark:2.4.6
     command: start-spark master
-    hostname: master
+    hostname: docker-local
     ports:
+      - "44040:4040"
       - "6066:6066"
       - "7077:7077"
       - "8080:8080"
       - "50070:50070"
-  worker:
+  worker1:
     image: spark:2.4.6
-    command: start-spark worker master
+    command: start-spark worker docker-local
+    depends_on:
+      - master
     environment:
-      SPARK_WORKER_CORES: 1
-      SPARK_WORKER_MEMORY: 2g
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 4g
+    links:
+      - master
+  worker2:
+    image: spark:2.4.6
+    command: start-spark worker docker-local
+    depends_on:
+      - master
+    environment:
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 4g
     links:
       - master
