@@ -4,7 +4,7 @@ services:
   master:
     image: spark:2.4.6
     command: start-spark master
-    hostname: docker-local
+    hostname: host.docker.internal
     ports:
       - "44040:4040"
       - "6066:6066"
@@ -13,7 +13,7 @@ services:
       - "50070:50070"
   worker1:
     image: spark:2.4.6
-    command: start-spark worker docker-local
+    command: start-spark worker master
     depends_on:
       - master
     environment:
@@ -23,7 +23,7 @@ services:
       - master
   worker2:
     image: spark:2.4.6
-    command: start-spark worker docker-local
+    command: start-spark worker master
     depends_on:
       - master
     environment:
