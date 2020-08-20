@@ -2,7 +2,8 @@ FROM singularities/hadoop:2.8
 MAINTAINER Singularities
 
 # Version
-ENV SPARK_VERSION=2.2.1
+ENV SPARK_VERSION=2.4.6
+ENV DOWNLOAD_MIRROR=https://mirrors.aliyun.com
 
 # Set home
 ENV SPARK_HOME=/usr/local/spark-$SPARK_VERSION
@@ -19,7 +20,7 @@ RUN apt-get update \
 RUN mkdir -p "${SPARK_HOME}" \
   && export ARCHIVE=spark-$SPARK_VERSION-bin-without-hadoop.tgz \
   && export DOWNLOAD_PATH=apache/spark/spark-$SPARK_VERSION/$ARCHIVE \
-  && curl -sSL https://mirrors.ocf.berkeley.edu/$DOWNLOAD_PATH | \
+  && curl -sSL $DOWNLOAD_MIRROR/$DOWNLOAD_PATH | \
     tar -xz -C $SPARK_HOME --strip-components 1 \
   && rm -rf $ARCHIVE
 COPY spark-env.sh $SPARK_HOME/conf/spark-env.sh
