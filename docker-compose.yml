@@ -2,7 +2,7 @@ version: "2"
  
 services:
   master:
-    image: spark:2.4.6
+    build: ./
     command: start-spark master
     hostname: master
     ports:
@@ -12,7 +12,7 @@ services:
       - "8080:8080"
       - "50070:50070"
   worker1:
-    image: spark:2.4.6
+    build: ./
     command: start-spark worker master
     depends_on:
       - master
@@ -22,7 +22,7 @@ services:
     links:
       - master
   worker2:
-    image: spark:2.4.6
+    build: ./
     command: start-spark worker master
     depends_on:
       - master
